@@ -1,0 +1,21 @@
+version: '3'
+services:
+    dynamodb:
+      build: ./
+      command: -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -dbPath "/home/dynamodblocal/dynamodb-storage" -sharedDb
+      ports:
+        - "8000:8000"
+      volumes:
+        - "$PWD/testdata/dynamodb-storage:/home/dynamodblocal/dynamodb-storage"
+    mysql:
+      image: mysql:5.7
+      ports:
+        - "3306:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_USER: testuser
+        MYSQL_PASSWORD: pass
+        MYSQL_DATABASE: testdb
+      volumes:
+        - "$PWD/testdata/mysql-storage:/var/lib/mysql" #データ永続化
+        - "$PWD/testdata/mysql-init:/docker-entrypoint-initdb.d" #初期データ投入
