@@ -19,3 +19,5 @@ services:
       volumes:
         - "$PWD/testdata/mysql-storage:/var/lib/mysql" #データ永続化
         - "$PWD/testdata/mysql-init:/docker-entrypoint-initdb.d" #初期データ投入
+        - "$PWD/testdata/mysql-conf:/etc/mysql/conf.d" #my.cnf
+        - "$PWD/log/mysql:/var/log/mysql" #log
