@@ -1,12 +1,12 @@
 version: '3'
 services:
     dynamodb:
-      build: ./
-      command: -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -dbPath "/home/dynamodblocal/dynamodb-storage" -sharedDb
+      image: amazon/dynamodb-local
       ports:
         - "8000:8000"
+      command: -jar DynamoDBLocal.jar -dbPath /dynamodb-storage -sharedDb
       volumes:
-        - "$PWD/testdata/dynamodb-storage:/home/dynamodblocal/dynamodb-storage"
+        - "$PWD/testdata/dynamodb-storage:/dynamodb-storage"
     mysql:
       image: mysql:5.7
       ports:
