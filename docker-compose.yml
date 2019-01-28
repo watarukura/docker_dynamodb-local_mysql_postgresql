@@ -6,7 +6,7 @@ services:
         - "8000:8000"
       command: -jar DynamoDBLocal.jar -dbPath /dynamodb-storage -sharedDb
       volumes:
-        - "$PWD/testdata/dynamodb-storage:/dynamodb-storage"
+        - "$PWD/data/dynamodb-storage:/dynamodb-storage"
     mysql:
       image: mysql:5.7
       ports:
@@ -17,17 +17,17 @@ services:
         MYSQL_PASSWORD: pass
         MYSQL_DATABASE: testdb
       volumes:
-        - "$PWD/testdata/mysql-storage:/var/lib/mysql" #データ永続化
-        - "$PWD/testdata/mysql-init:/docker-entrypoint-initdb.d" #初期データ投入
-        - "$PWD/testdata/mysql-conf:/etc/mysql/conf.d" #my.cnf
+        - "$PWD/data/mysql-storage:/var/lib/mysql" #データ永続化
+        - "$PWD/data/mysql-init:/docker-entrypoint-initdb.d" #初期データ投入
+        - "$PWD/data/mysql-conf:/etc/mysql/conf.d" #my.cnf
         - "$PWD/log/mysql:/var/log/mysql" #log
     postgresql:
       image: postgres:10.5
       ports:
         - 5432:5432
       volumes:
-        - "$PWD/testdata/postgres-storage:/var/lib/postgresql/data" #データ永続化
-        - "$PWD/testdata/postgres-init:/docker-entrypoint-initdb.d" #初期データ投入
+        - "$PWD/data/postgres-storage:/var/lib/postgresql/data" #データ永続化
+        - "$PWD/data/postgres-init:/docker-entrypoint-initdb.d" #初期データ投入
         - "$PWD/log/postgres:/var/log/postgresql" #log
       environment:
         POSTGRES_USER: testuser
