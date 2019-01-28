@@ -21,3 +21,20 @@ services:
         - "$PWD/testdata/mysql-init:/docker-entrypoint-initdb.d" #初期データ投入
         - "$PWD/testdata/mysql-conf:/etc/mysql/conf.d" #my.cnf
         - "$PWD/log/mysql:/var/log/mysql" #log
+    postgresql:
+      image: postgres:10.5
+      ports:
+        - 5432:5432
+      volumes:
+        - "$PWD/testdata/postgres-storage:/var/lib/postgresql/data" #データ永続化
+        - "$PWD/testdata/postgres-init:/docker-entrypoint-initdb.d" #初期データ投入
+        - "$PWD/log/postgres:/var/log/postgresql" #log
+      environment:
+        POSTGRES_USER: testuser
+        POSTGRES_PASSWORD: pass
+        POSTGRES_DB: testdb 
+        POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      hostname: postgres
+      restart: always
+      user: root
+        
